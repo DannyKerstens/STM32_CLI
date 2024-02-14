@@ -18,7 +18,16 @@ void setGPIO(char *args)
         return;
     }
 
-    if(gpioPort[0] == 'C' || gpioPort[0] == 'c')
+    if(gpioPort[0] == 'A' || gpioPort[0] == 'a')
+    	HAL_GPIO_WritePin(GPIOA, (1<<pinnumber), status);
+
+    else if(gpioPort[0] == 'B' || gpioPort[0] == 'b')
+    	HAL_GPIO_WritePin(GPIOB, (1<<pinnumber), status);
+
+    else if(gpioPort[0] == 'C' || gpioPort[0] == 'c')
     	HAL_GPIO_WritePin(GPIOC, (1<<pinnumber), status);
+
+    else if(gpioPort[0] == 'D' || gpioPort[0] == 'd')
+    	HAL_GPIO_WritePin(GPIOD, (1<<pinnumber), status);
 }
 
