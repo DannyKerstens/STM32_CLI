@@ -4,7 +4,6 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <time.h>
-#include "sh_eeprom.h"
 
 /* Defines */
 extern UART_HandleTypeDef huart1;
@@ -16,7 +15,7 @@ static const uint16_t USART_TIMEOUT = 3000;
 
 static char buf[LOG_BUFFER_SIZE];
 
-const char* suffix = { "\n" };
+const char* suffix = { "\r\n" };
 
 /* Functions */
 void LOG_Print(const char* text, ...)
@@ -92,9 +91,9 @@ void LOG_Error(const char* text, ...)
 
 void LOG_Header (const char* str)
 {
-  LOG_Print ("\n========================================================================================");
-  LOG_Print ("\n%s", str);
-  LOG_Print ("\n========================================================================================\n");
+  LOG_Print ("\r\n========================================================================================");
+  LOG_Print ("\r\n%s", str);
+  LOG_Print ("\r\n========================================================================================\r\n");
 }
 
 const char* DEBUG_GetTimestampStr (const time_t time)
@@ -108,13 +107,3 @@ const char* DEBUG_GetTimestampStr (const time_t time)
   return buf;
 }
 
-const char* DEBUG_GetItemStr (uint16_t page, uint32_t address)
-{
-  EE_Item_t* pItem = SH_EEPROM_FindItem ((EE_Page_t)page, address);
-
-  memset (buf, '\0', sizeof (buf));
-
-  snprintf (buf, sizeof(buf), "%s", pItem->label);
-
-  return buf;
-}
