@@ -15,5 +15,7 @@ __packed typedef struct {
  */
 void setGPIO(char *args);
 
+void getGPIO(char *args);
+
 
 #endif /* INC_CLI_BINDING_H_ */

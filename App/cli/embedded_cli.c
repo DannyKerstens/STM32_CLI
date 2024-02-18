@@ -8,13 +8,15 @@ uint8_t rxBufferIndex = 0;
 
 const COMMAND_S CLI_COMMANDS[] =
 {
-	{ "set-gpio", "set-gpio <PORT> <PIN> <STATUS>\r\n", setGPIO }
+	{ "set-gpio", "set-gpio <PORT> <PIN> <STATUS>\r\n", setGPIO },
+	{ "get-gpio", "get-gpio <PORT> <PIN>\r\n", getGPIO }
 };
 
 void cliReceiveHandler(char c)
 {
 	if(((c == '\r') || (c == '\n')) && !cliReady)
 	{
+		UART_CLI_rxBuffer[rxBufferIndex] = ' ';
 		cliReady = true;
 	}
 	else if(!cliReady)
@@ -32,7 +34,7 @@ void cliProcess()
 
 		for (int i = 0; i < sizeof(CLI_COMMANDS)/sizeof(COMMAND_S); ++i)
 		{
-			if(strcmp(CLI_COMMANDS->pCmd, command) == 0)
+			if(strcmp(CLI_COMMANDS[i].pCmd, command) == 0)
 			{
 				CLI_COMMANDS[i].pFun(UART_CLI_rxBuffer);
 				cliReady = false;
