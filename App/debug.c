@@ -31,6 +31,7 @@ void LOG_Print(const char* text, ...)
     va_end(argptr);
 
     HAL_UART_Transmit(LOGGER_UART, (uint8_t*)buf, strlen(buf), USART_TIMEOUT);
+    HAL_UART_Transmit(LOGGER_UART, (uint8_t*)suffix, strlen(suffix), USART_TIMEOUT);
 }
 
 void LOG_Info(const char* text, ...)
@@ -92,8 +93,8 @@ void LOG_Error(const char* text, ...)
 void LOG_Header (const char* str)
 {
   LOG_Print ("\r\n========================================================================================");
-  LOG_Print ("\r\n%s", str);
-  LOG_Print ("\r\n========================================================================================\r\n");
+  LOG_Print ("%s", str);
+  LOG_Print ("========================================================================================");
 }
 
 const char* DEBUG_GetTimestampStr (const time_t time)
